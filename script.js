@@ -59,69 +59,77 @@ function starQuiz() {
     gametime()
 }
 
-btnScore.addEventListener("click" , function(){
+btnScore.addEventListener("click", function () {
     let name = document.getElementById("inputScore").value
     scorePage(name, count)
 });
 
-function gametime(){
+function gametime() {
 
-    var timeinterval = setInterval(function(){
+    var timeinterval = setInterval(function () {
         timer.innerText = count
-         count--;
-        }, 1000);
-    
+        count--;
+    }, 1000);
+
 }
 
-function displayQuestion(question){
-    titleitem.innerText=question.title
+function displayQuestion(question) {
+    titleitem.innerText = question.title
     question.choices.forEach(element => {
-     var button =document.createElement("button")
-    button.className="btn-primary btn-block text-left"
-    button.innerText=element
-    questionanswers.appendChild(button)
-    button.addEventListener("click", displaynextQuestion)
+        var button = document.createElement("button")
+        button.className = "btn-primary btn-block text-left"
+        button.innerText = element
+        questionanswers.appendChild(button)
+        button.addEventListener("click", displaynextQuestion)
     });
 }
 
-function displaynextQuestion(e){
+function displaynextQuestion(e) {
     currentindex++
-    if(currentindex < questions.length){
+    if (currentindex < questions.length) {
         correction(e.target.innerText == nextQuestions.answer)
-        questionanswers.innerHTML=""
-        if(currentindex < questions.length){    
-            nextQuestions= questions[currentindex]
-            displayQuestion(nextQuestions)  
-        }else {
+        questionanswers.innerHTML = ""
+        if (currentindex < questions.length) {
+            nextQuestions = questions[currentindex]
+            displayQuestion(nextQuestions)
+        } else {
             currentindex = 0
-            displayQuestion(nextQuestions)  
+            displayQuestion(nextQuestions)
         }
 
-    }else{
+    } else {
         console.log("endgame")
         endgame()
-        
+
 
     }
-    
-     
+
+
 }
 
-function correction(response){
-    
-    if(response){
-        alert.innerText= "Good"
-        console.log("Good")
-    }else {
-        alert.innerText="Wrong"
-        count = count -15
+function correction(response) {
+
+    if (response) {
+        alert.innerText = "Correct!"
+    } else {
+        alert.innerText = "Wrong Answer!"
+        count = count - 15
         timer.innerHTML = count
-        console.log("Wrong")
-
     }
-    setTimeout(function(){
-        alert.innerText=""
-    
-        }, 1000);
+    setTimeout(function () {
+        alert.innerText = ""
 
-    }
+    }, 1000);
+
+}
+function scorePage(a, b) {
+
+    var userData = {
+        inits: a,
+        userScore: b
+    };
+    allScores.push(userData);
+
+    localStorage.setItem("userData", JSON.stringify(allScores));
+    location.href = "score.html";
+}
