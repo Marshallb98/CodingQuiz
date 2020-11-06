@@ -41,3 +41,32 @@ var questions = [
         answer: "console.log"
     },
 ]
+
+btnStart.addEventListener("click", starQuiz);
+function starQuiz() {
+    if (storedScores !== null) {
+        allScores = storedScores;
+    }
+    info.classList.add("d-none")
+    btnStart.classList.add("d-none")
+    timecounter.classList.remove("d-none")
+    quizQuestions.classList.remove("d-none")
+    nextQuestions = questions[currentindex]
+    console.log(nextQuestions.title)
+
+    displayQuestion(nextQuestions)
+
+    gametime()
+}
+
+btnScore.addEventListener("click" , function(){
+    let name = document.getElementById("inputScore").value
+    scorePage(name, count)
+});
+
+function gametime(){
+
+    var timeinterval = setInterval(function(){
+        timer.innerText = count
+         count--;
+        }, 1000);
