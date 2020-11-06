@@ -16,27 +16,27 @@ var allScores = [];
 var storedScores = JSON.parse(localStorage.getItem("userData"));
 var questions = [
     {
-        title: "Commonly used data type Do Not include:---",
+        title: "Commonly used data type Do Not include?",
         choices: ["strings", "booleance", "alerts", "numbers"],
         answer: "alerts"
     },
     {
-        title: "The condition in an if/else statement is enclosed within:---",
+        title: "The condition in an if/else statement is enclosed within?",
         choices: ["quotes", "Curly brackets", "parentheses", "square brackets"],
         answer: "parentheses"
     },
     {
-        title: "Arrays in JavaScript can be used to store:---",
+        title: "Arrays in JavaScript can be used to store?",
         choices: ["numbers and strings", "others Arrays", "booleances", "all of the above"],
         answer: "all of the above"
     },
     {
-        title: "String values must be enclosed within --- when being assigned to variables ",
+        title: "String values must be enclosed within ____ when being assigned to variables ",
         choices: ["commas", "curly brackets", "quotes", "parentheses"],
         answer: "quotes"
     },
     {
-        title: "A very useful tool used during development and debugging for printing content to the debugger is:---",
+        title: "A very useful tool used during development and debugging for printing content to the debugger is?",
         choices: ["JavaScript", "terminal/bash", "alerts", "console.log"],
         answer: "console.log"
     },
@@ -70,3 +70,58 @@ function gametime(){
         timer.innerText = count
          count--;
         }, 1000);
+    
+}
+
+function displayQuestion(question){
+    titleitem.innerText=question.title
+    question.choices.forEach(element => {
+     var button =document.createElement("button")
+    button.className="btn-primary btn-block text-left"
+    button.innerText=element
+    questionanswers.appendChild(button)
+    button.addEventListener("click", displaynextQuestion)
+    });
+}
+
+function displaynextQuestion(e){
+    currentindex++
+    if(currentindex < questions.length){
+        correction(e.target.innerText == nextQuestions.answer)
+        questionanswers.innerHTML=""
+        if(currentindex < questions.length){    
+            nextQuestions= questions[currentindex]
+            displayQuestion(nextQuestions)  
+        }else {
+            currentindex = 0
+            displayQuestion(nextQuestions)  
+        }
+
+    }else{
+        console.log("endgame")
+        endgame()
+        
+
+    }
+    
+     
+}
+
+function correction(response){
+    
+    if(response){
+        alert.innerText= "Good"
+        console.log("Good")
+    }else {
+        alert.innerText="Wrong"
+        count = count -15
+        timer.innerHTML = count
+        console.log("Wrong")
+
+    }
+    setTimeout(function(){
+        alert.innerText=""
+    
+        }, 1000);
+
+    }
