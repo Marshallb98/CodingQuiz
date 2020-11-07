@@ -11,7 +11,7 @@ var nextQuestions
 var info = document.getElementById("info");
 var currentindex = 0;
 var score = 0;
-var count = 90;
+var count = 110;
 var allScores = [];
 var storedScores = JSON.parse(localStorage.getItem("userData"));
 var questions = [
@@ -98,7 +98,6 @@ function displaynextQuestion(e) {
         }
 
     } else {
-        console.log("endgame")
         endgame()
 
 
@@ -132,4 +131,13 @@ function scorePage(a, b) {
 
     localStorage.setItem("userData", JSON.stringify(allScores));
     location.href = "score.html";
+}
+
+function endgame (){
+    myScore.innaText = count
+    addscore.classList.remove("d-none")
+    timecounter.classList.add("d-none")
+    quizQuestions.classList.add("d-none")
+    addscore.classList.remove("d-none")
+
 }
